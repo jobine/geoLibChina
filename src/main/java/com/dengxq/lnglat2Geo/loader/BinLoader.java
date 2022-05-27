@@ -25,7 +25,7 @@ import java.util.Map;
 public class BinLoader implements ILoader {
     private static final int M = (1 << 20);
 
-    private String sourcePath = "data.bin";
+    private String sourcePath = "geolib.data.bin";
 
     public BinLoader(String sourcePath) {
         this.sourcePath = sourcePath;

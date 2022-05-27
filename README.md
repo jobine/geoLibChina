@@ -29,7 +29,7 @@
     ILoader.Storage.setLoader(new JSONLoader());
     
     // 代码测试没问题，使用BinLoader再把数据dump为二进制格式
-    new BinLoader().dump(new File("src/main/resources/data.bin"), geoData);
+    new BinLoader().dump(new File("src/main/resources/geolib.data.bin"), geoData);
     
     //线上，取消JSONLoader
 ```
