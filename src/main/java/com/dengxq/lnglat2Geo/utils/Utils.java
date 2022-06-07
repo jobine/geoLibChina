@@ -40,7 +40,7 @@ public class Utils {
                                 (Function<List<Long>, Stream<Tuple4<Long, Long, Integer, Boolean>>>)
                                         input -> {
                                             List<Tuple4<Long, Long, Integer, Boolean>> ret = new ArrayList<>();
-                                            for (int i = 0; i < input.size() - 2; i++) {
+                                            for (int i = 0; i <= input.size() - 2; i++) {
                                                 ret.add(Tuples.of(input.get(i), input.get(i + 1), adminBoundary.code, true));
                                                 ret.add(Tuples.of(input.get(i + 1), input.get(i), adminBoundary.code, false));
                                             }
@@ -80,7 +80,7 @@ public class Utils {
                     if (list.get(0).get1()) {
                         ret1.add(Tuples.of(sss.getKey(), list.get(0).get0(), -1));
                     } else {
-                        ret1.add(Tuples.of(sss.getKey(), -1, -1));
+                        ret1.add(Tuples.of(sss.getKey(), -1, list.get(0).get0()));
                     }
                 }
             }

@@ -71,21 +71,21 @@ public class GeoData {
         runtimeBoundaryAdminCell = null;
     }
 
-    public Map<Long, List<Tuple3<Long, Integer, Integer>>> getOrCreateRuntimeBoundaryData() {
+    public synchronized Map<Long, List<Tuple3<Long, Integer, Integer>>> getOrCreateRuntimeBoundaryData() {
         if (runtimeBoundaryData == null) {
             runtimeBoundaryData = Utils.parseBoundaryData(adminBoundaries);
         }
         return runtimeBoundaryData;
     }
 
-    public Map<Long, List<Long>> getOrCreateRuntimeBoundaryIndex() {
+    public synchronized Map<Long, List<Long>> getOrCreateRuntimeBoundaryIndex() {
         if (runtimeBoundaryIndex == null) {
             runtimeBoundaryIndex = Utils.buildBoundaryIndex(getOrCreateRuntimeBoundaryData());
         }
         return runtimeBoundaryIndex;
     }
 
-    public Map<Long, Integer> getOrCreateRuntimeBoundaryAdminCell() {
+    public synchronized Map<Long, Integer> getOrCreateRuntimeBoundaryAdminCell() {
         if (runtimeBoundaryAdminCell == null) {
             runtimeBoundaryAdminCell = Utils.buildBoundaryAdminCell(cellAdmins);
         }

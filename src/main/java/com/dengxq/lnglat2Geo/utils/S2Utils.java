@@ -11,18 +11,31 @@ public class S2Utils {
 
     //  // 预算，提升速度
     public static Map<Integer, Double> capHeightMap = new HashMap<Integer, Double>() {{
-        for (int radius : Arrays.asList(2, 4, 8, 16, 32, 64, 128, 256)) {
-            double rad = earthMeters2Radians(radius * 1000D);
-            put(radius * 1000, rad * rad * 2);
+        for (int kRadius : Arrays.asList(2, 4, 8, 16, 32, 64, 128, 256)) {
+            double meterRadius = kRadius * 1000D;
+            put((int) meterRadius, capHeight(meterRadius));
         }
     }};
+
+
+    private static double capHeight(double radius) {
+        double rad = earthMeters2Radians(radius);
+        return rad * rad * 2;
+    }
 
     public static double earthMeters2Radians(Double meters) {
         return (2 * S2.M_PI) * (meters / 40075017);
     }
 
-    public static List<Long> getCellId(S2LatLng s2LatLng, int radius, int desLevel) {
+    public static double getCapHeight(int radius) {
         double capHeight = capHeightMap.getOrDefault(radius, 0d);
+        if (capHeight == 0d) {
+            capHeight = capHeight(radius);
+        }
+        return capHeight;
+    }
+    public static List<Long> getCellId(S2LatLng s2LatLng, int radius, int desLevel) {
+        double capHeight = getCapHeight(radius);
         S2Cap cap = S2Cap.fromAxisHeight(s2LatLng.toPoint(), capHeight);
         S2RegionCoverer coverer = new S2RegionCoverer();
         coverer.setMaxLevel(desLevel);
